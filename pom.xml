@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>JNITest</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/classes</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <source>${maven.compiler.target}</source>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>1.0-alpha-9</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <javahOS>linux</javahOS>
+                    <jdkIncludePath>${java.home}/../include</jdkIncludePath>
+                    <javahVerbose>true</javahVerbose>
+                    <javahClassNames>
+                        <javahClassName>HelloJNI</javahClassName>
+                    </javahClassNames>
+
+                    <sources>
+                        <source>
+                            <directory>src/main/native</directory>
+                            <includes>
+                                <include>*.cpp</include>
+                            </includes>
+                        </source>
+
+                    </sources>
+
+                    <compilerExecutable>g++</compilerExecutable>
+                    <compilerStartOptions>
+                        <compilerStartOption>-g</compilerStartOption>
+                        <compilerStartOption>-std=c++11</compilerStartOption>
+                        <compilerStartOption>-fPIC</compilerStartOption>
+                    </compilerStartOptions>
+
+                    <linkerExecutable>g++</linkerExecutable>
+                    <linkerFinalName>libHelloJNI</linkerFinalName>
+                    <linkerFinalNameExt>so</linkerFinalNameExt>
+                    <linkerOutputDirectory>${project.build.directory}/classes/</linkerOutputDirectory>
+                    <linkerStartOptions>
+                        <linkerStartOption>-static-libstdc++</linkerStartOption>
+                        <linkerStartOption>-shared</linkerStartOption>
+                        <linkerStartOption>-lpthread</linkerStartOption>
+                    </linkerStartOptions>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>compile-native</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>javah</goal>
+                            <goal>compile</goal>
+                            <goal>link</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
