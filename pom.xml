@@ -58,7 +58,7 @@
                     <jdkIncludePath>${java.home}/../include</jdkIncludePath>
                     <javahVerbose>true</javahVerbose>
                     <javahClassNames>
-                        <javahClassName>HelloJNI</javahClassName>
+                        <javahClassName>JNIByteBuffer</javahClassName>
                     </javahClassNames>
 
                     <sources>
@@ -79,7 +79,7 @@
                     </compilerStartOptions>
 
                     <linkerExecutable>g++</linkerExecutable>
-                    <linkerFinalName>libHelloJNI</linkerFinalName>
+                    <linkerFinalName>libJNIByteBuffer</linkerFinalName>
                     <linkerFinalNameExt>so</linkerFinalNameExt>
                     <linkerOutputDirectory>${project.build.directory}/classes/</linkerOutputDirectory>
                     <linkerStartOptions>

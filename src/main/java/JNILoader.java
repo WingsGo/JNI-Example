@@ -7,7 +7,7 @@ import java.security.PrivilegedAction;
  * @version 1.0
  * @date 2021/8/4 下午1:25
  */
-public class HelloJNILoader {
+public class JNILoader {
     public static final boolean isLinux = System.getProperty("os.name").toLowerCase()
             .startsWith("linux");
 
@@ -22,14 +22,14 @@ public class HelloJNILoader {
             return;
         }
 
-        synchronized (HelloJNILoader.class) {
+        synchronized (JNILoader.class) {
             if (so_loaded) {
                 return;
             }
             AccessController.doPrivileged(
                     (PrivilegedAction) () -> {
                         try {
-                            NativeUtils.loadLibraryFromJar("/libHelloJNI.so");
+                            NativeUtils.loadLibraryFromJar("/libJNIByteBuffer.so");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
