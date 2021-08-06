@@ -60,6 +60,8 @@
                     <javahClassNames>
                         <javahClassName>JNIByteBuffer</javahClassName>
                         <javahClassName>Sdk</javahClassName>
+                        <javahClassName>JNIConsumer</javahClassName>
+                        <javahClassName>JNIAsyncConsumer</javahClassName>
                     </javahClassNames>
 
                     <sources>

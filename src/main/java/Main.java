@@ -16,6 +16,21 @@ public class Main {
         System.out.println("3: " + bb.getInt(8));
         System.out.println("4: " + bb.getInt(12));
         System.out.println("5: " + bb.getInt(16));
+
         Sdk.getInstance().nativeDownload();
+
+        // sync callback
+        JNIConsumer consumer = new JNIConsumer();
+        consumer.sendQuery();
+        while (consumer.next()) {
+            System.out.println("Consumer get value: " + consumer.getCurrentValue());
+        }
+
+        // async callback
+        JNIAsyncConsumer asyncConsumer = new JNIAsyncConsumer();
+        asyncConsumer.sendQuery();
+        while (asyncConsumer.next()) {
+            System.out.println("Async Consumer get value: " + asyncConsumer.getCurrentValue());
+        }
     }
 }
