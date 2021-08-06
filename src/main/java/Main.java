@@ -16,5 +16,6 @@ public class Main {
         System.out.println("3: " + bb.getInt(8));
         System.out.println("4: " + bb.getInt(12));
         System.out.println("5: " + bb.getInt(16));
+        Sdk.getInstance().nativeDownload();
     }
 }

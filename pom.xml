@@ -59,6 +59,7 @@
                     <javahVerbose>true</javahVerbose>
                     <javahClassNames>
                         <javahClassName>JNIByteBuffer</javahClassName>
+                        <javahClassName>Sdk</javahClassName>
                     </javahClassNames>
 
                     <sources>
