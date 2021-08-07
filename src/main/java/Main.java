@@ -32,5 +32,26 @@ public class Main {
         while (asyncConsumer.next()) {
             System.out.println("Async Consumer get value: " + asyncConsumer.getCurrentValue());
         }
+
+        // test direct memory allocate and set
+        int size = 1073741824;
+        long l = System.currentTimeMillis();
+        ByteBuffer byteBufferFromCpp = JNIMemory.allocateAndSetDirectMemoryFromCpp(size);
+        long cost = System.currentTimeMillis() - l;
+        System.out.println("allocate and set DirectMemory from cpp with " + size + " bytes cost " + cost + " ms");
+        l = System.currentTimeMillis();
+        ByteBuffer byteBufferFromJava = JNIMemory.allocateAndSetDirectMemoryFromJava(size);
+        cost = System.currentTimeMillis() - l;
+        System.out.println("allocate and set DirectMemory from java with " + size + " bytes cost " + cost + " ms");
+
+        // test memory allocate and set
+        l = System.currentTimeMillis();
+        ByteBuffer cppByteBuffer = ByteBuffer.wrap(JNIMemory.allocateAndSetMemoryFromCpp(size));
+        cost = System.currentTimeMillis() - l;
+        System.out.println("allocate and set HeapMemory from cpp with " + size + " bytes cost " + cost + " ms");
+        l = System.currentTimeMillis();
+        ByteBuffer javaByteBuffer = JNIMemory.allocateAndSetMemoryFromJava(size);
+        cost = System.currentTimeMillis() - l;
+        System.out.println("allocate and set HeapMemory from java with " + size + " bytes cost " + cost + " ms");
     }
 }
